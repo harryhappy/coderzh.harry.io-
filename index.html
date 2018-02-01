@@ -65,7 +65,7 @@
     <article id="post-test" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/02/01/test/" class="article-date">
-  <time datetime="2018-02-01T14:42:35.000Z" itemprop="datePublished">2018-02-01</time>
+  <time datetime="2018-02-01T14:20:44.000Z" itemprop="datePublished">2018-02-01</time>
 </a>
     
   </div>
@@ -84,13 +84,20 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="开始单元测试"><a href="#开始单元测试" class="headerlink" title="开始单元测试"></a>开始单元测试</h2><p>现在微服务框架，使得最初的debug调试变得非常难，对于Web服务架构通常分接入层，逻辑层，存储层…对于业务复杂的还可能分更多的层次。</p>
+<p>开发者社区中一种说法：不使用debug的开发习惯，也就是说不依赖debug进行程序的开发。如果你开发的是一个复杂逻辑的程序，debug还是十分方便的，但是对于大多数程序来说使用全面的log体系可以完成程序的调试和验证工作。</p>
+<p>对于微服务架构的程序，涉及到服务之间的相互调用，如果都依赖log来验证程序的正确性，开发成本就会变得很高。</p>
+<p>单元测试就显得尤为重要了，首先微服务自身要保证单元测试通过，保证自身逻辑的正确性，这样才不会在服务pair的时候浪费很多时间来联调，在编写单元测试的过程中可能浪费了一些时间，但是这些投入会大大减少后期联调成本，同时对于程序将来的重构有很大的好处。</p>
+<p>如果在服务之间联调、集成测试等过程中发现了新的逻辑bug，这时就需要考虑这个问题是否可以通过单元测试用例来弥补，保证下次不会出现这样的问题，同时如果服务面临重构保证了新的逻辑符合预期。</p>
+<h2 id="Java单元测试"><a href="#Java单元测试" class="headerlink" title="Java单元测试"></a>Java单元测试</h2>
       
     </div>
     <footer class="article-footer">
       <a data-url="http://yoursite.com/2018/02/01/test/" data-id="cjd4m4mio00003fl6v2z4kfkn" class="article-share-link">Teilen</a>
       
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-单元测试-junit/">java 单元测试 junit</a></li></ul>
+
     </footer>
   </div>
   
@@ -153,9 +160,23 @@
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-单元测试-junit/">java 单元测试 junit</a></li></ul>
+    </div>
+  </div>
+
 
   
     
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/java-单元测试-junit/" style="font-size: 10px;">java 单元测试 junit</a>
+    </div>
+  </div>
+
   
     
   <div class="widget-wrap">
