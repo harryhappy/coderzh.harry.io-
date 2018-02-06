@@ -49,9 +49,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -61,6 +61,32 @@
 </header>
       <div class="outer">
         <section id="main">
+  
+    <article id="post-Locust源码分析" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/02/06/Locust源码分析/" class="article-date">
+  <time datetime="2018-02-06T14:03:26.699Z" itemprop="datePublished">2018-02-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/02/06/Locust源码分析/" data-id="cjdbpxft00000anl6ds9mutq6" class="article-share-link">Partager</a>
+      
+      
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-压力测试" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -84,11 +110,34 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h1 id="压力测试的关键组成："><a href="#压力测试的关键组成：" class="headerlink" title="压力测试的关键组成："></a>压力测试的关键组成：</h1><ol>
+<li>压力源提供</li>
+<li>调度控制器</li>
+<li>结果报告收集和展示</li>
+</ol>
+<p>目前已经存在的压力测试工具。<br>制造轮子的可能性不大，应该是使用已有开源项目做二次开发来实现。</p>
+<h1 id="Locust"><a href="#Locust" class="headerlink" title="Locust"></a>Locust</h1><h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1. 简介"></a>1. 简介</h1><p><strong>Locust</strong> 是一个简单的压力测试工具，可以测试web服务或者其他服务，测试出系统并发数</p>
+<p>想象一下这样一个场景：开始一个压力测试，一群蝗虫开始攻击你的站点。你定义的每一个”蝗虫”的行为都可以从实时的ui系统中展示，这将帮助你找到服务中性能的瓶颈，而不是等待真实用户的场景发生时才发现那些性能问题。</p>
+<p>Locust 是一个完全的事件驱动系统，单个machine可以支持上万的并发用户数，</p>
+<ol>
+<li>特性</li>
+</ol>
+<ul>
+<li><p>基于协程，和简单的python代码，比起复杂ui配置和臃肿的xml配置方式，使用起来更方便。</p>
+</li>
+<li><p>分布式，可伸缩的设计，支持更大的并发数</p>
+</li>
+<li>web 在线展示系统，因为是web服务，跨平台性更好。</li>
+<li>可以测试任何类型的系统，只需要定制自己的client，</li>
+</ul>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>作者对比了jmeter  Tsung 说了些这两个程序的缺点，主要是为了突出Locust使用协程，可以模拟跟多的并发用户数，使用纯净的python脚本编写，没有页面配置和xml配置那么麻烦。</p>
+<h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">from locust import HttpLocust, TaskSet</span><br><span class="line"></span><br><span class="line">def login(l):</span><br><span class="line">    l.client.post(&quot;/login&quot;, &#123;&quot;username&quot;:&quot;ellen_key&quot;, &quot;password&quot;:&quot;education&quot;&#125;)</span><br><span class="line"></span><br><span class="line">def index(l):</span><br><span class="line">    l.client.get(&quot;/&quot;)</span><br><span class="line"></span><br><span class="line">def profile(l):</span><br><span class="line">    l.client.get(&quot;/profile&quot;)</span><br><span class="line"></span><br><span class="line">class UserBehavior(TaskSet):</span><br><span class="line">    tasks = &#123;index: 2, profile: 1&#125;</span><br><span class="line"></span><br><span class="line">    def on_start(self):</span><br><span class="line">        login(self)</span><br><span class="line"></span><br><span class="line">class WebsiteUser(HttpLocust):</span><br><span class="line"># 1. 继承HttpLocust   2.赋值task_set为UserBehavior  3.设置min max wait time   </span><br><span class="line">    task_set = UserBehavior</span><br><span class="line">    min_wait = 5000</span><br><span class="line">    max_wait = 9000</span><br></pre></td></tr></table></figure>
+<h1 id="写一个Locust-file"><a href="#写一个Locust-file" class="headerlink" title="写一个Locust file"></a>写一个Locust file</h1><p>LocustFile 是一个普通的python文件，单纯的需要类继承自locust ，这个类将作为配置的入口</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/04/压力测试/" data-id="cjd8f13oq000036l6dj7tkfcx" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/04/压力测试/" data-id="cjd8f13oq000036l6dj7tkfcx" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/压力测试使用/">压力测试使用</a></li></ul>
@@ -133,7 +182,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/01/Java单元测试01/" data-id="cjd59hgmy0000cdl6388rkayg" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/01/Java单元测试01/" data-id="cjd59hgmy0000cdl6388rkayg" class="article-share-link">Partager</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-单元测试-junit/">java 单元测试 junit</a></li></ul>
@@ -156,7 +205,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/java-单元测试-junit/">java 单元测试 junit</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/压力测试使用/">压力测试使用</a></li></ul>
     </div>
@@ -166,7 +215,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
       <a href="/tags/java-单元测试-junit/" style="font-size: 10px;">java 单元测试 junit</a> <a href="/tags/压力测试使用/" style="font-size: 10px;">压力测试使用</a>
     </div>
@@ -175,7 +224,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
     </div>
@@ -185,9 +234,13 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/02/06/Locust源码分析/">(no title)</a>
+          </li>
         
           <li>
             <a href="/2018/02/04/压力测试/">压力测试</a>
@@ -210,7 +263,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2018 Harry<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé par <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
