@@ -51,7 +51,7 @@
         
           <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Suche"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
@@ -84,11 +84,27 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h1 id="官网demo运行追踪"><a href="#官网demo运行追踪" class="headerlink" title="官网demo运行追踪"></a>官网demo运行追踪</h1>
+        <h1 id="官网demo运行追踪"><a href="#官网demo运行追踪" class="headerlink" title="官网demo运行追踪"></a>官网demo运行追踪</h1><h2 id="1-官网例子"><a href="#1-官网例子" class="headerlink" title="1. 官网例子"></a>1. 官网例子</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#coding=utf-8 </span></span><br><span class="line"></span><br><span class="line"><span class="keyword">from</span> locust <span class="keyword">import</span> HttpLocust, TaskSet</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get1</span><span class="params">(l)</span>:</span></span><br><span class="line">    l.client.get(<span class="string">"/get1"</span>);</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">get2</span><span class="params">(l)</span>:</span></span><br><span class="line">    l.client.get(<span class="string">"/get2"</span>)</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">UserBehavior</span><span class="params">(TaskSet)</span>:</span></span><br><span class="line">    tasks = &#123;get1 : <span class="number">2</span>, get2 : <span class="number">1</span>&#125;</span><br><span class="line">    </span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">WebsiteUser</span><span class="params">(HttpLocust)</span>:</span></span><br><span class="line">    task_set = UserBehavior</span><br><span class="line">    min_wait = <span class="number">5000</span></span><br><span class="line">    max_wait = <span class="number">9000</span></span><br></pre></td></tr></table></figure>
+<p>主要有三点内容：</p>
+<ol>
+<li>一个class 继承自HttpLocust，其中一个属性task_set 需要设置</li>
+<li>一个class 继承自TaskSet</li>
+<li>TaskSet中的tasks属性可以定义权重、设置setup等逻辑</li>
+</ol>
+<h2 id="2-官网例子运行"><a href="#2-官网例子运行" class="headerlink" title="2. 官网例子运行"></a>2. 官网例子运行</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">locust --host=http://example.com</span><br></pre></td></tr></table></figure>
+<p>执行上面的命令后，发生了什么？<br>locust 的main<br>根据输入参数不同有几种模式：</p>
+<ul>
+<li>master模式</li>
+<li>slave模式</li>
+<li>local模式</li>
+</ul>
+<p>这三种Runner 都继承自<code>LocustRunner</code></p>
+<p>上面的命令中没有指定任何运行相关配置，所以是local模式<br>spawn client spawning/hatching greenlet</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/06/Locust源码分析/" data-id="cjdbpxft00000anl6ds9mutq6" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/06/Locust源码分析/" data-id="cjdbpxft00000anl6ds9mutq6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/压力测试使用/">压力测试使用</a></li></ul>
@@ -145,11 +161,11 @@
 <h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>作者对比了jmeter  Tsung 说了些这两个程序的缺点，主要是为了突出Locust使用协程，可以模拟跟多的并发用户数，使用纯净的python脚本编写，没有页面配置和xml配置那么麻烦。</p>
 <h1 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h1><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">from locust import HttpLocust, TaskSet</span><br><span class="line"></span><br><span class="line">def login(l):</span><br><span class="line">    l.client.post(&quot;/login&quot;, &#123;&quot;username&quot;:&quot;ellen_key&quot;, &quot;password&quot;:&quot;education&quot;&#125;)</span><br><span class="line"></span><br><span class="line">def index(l):</span><br><span class="line">    l.client.get(&quot;/&quot;)</span><br><span class="line"></span><br><span class="line">def profile(l):</span><br><span class="line">    l.client.get(&quot;/profile&quot;)</span><br><span class="line"></span><br><span class="line">class UserBehavior(TaskSet):</span><br><span class="line">    tasks = &#123;index: 2, profile: 1&#125;</span><br><span class="line"></span><br><span class="line">    def on_start(self):</span><br><span class="line">        login(self)</span><br><span class="line"></span><br><span class="line">class WebsiteUser(HttpLocust):</span><br><span class="line"># 1. 继承HttpLocust   2.赋值task_set为UserBehavior  3.设置min max wait time   </span><br><span class="line">    task_set = UserBehavior</span><br><span class="line">    min_wait = 5000</span><br><span class="line">    max_wait = 9000</span><br></pre></td></tr></table></figure>
 <h1 id="写一个Locust-file"><a href="#写一个Locust-file" class="headerlink" title="写一个Locust file"></a>写一个Locust file</h1><p>LocustFile 是一个普通的python文件，单纯的需要类继承自locust ，这个类将作为配置的入口</p>
-
+<h1 id="Locust-分布式程序"><a href="#Locust-分布式程序" class="headerlink" title="Locust 分布式程序"></a>Locust 分布式程序</h1>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/04/压力测试/" data-id="cjd8f13oq000036l6dj7tkfcx" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/04/压力测试/" data-id="cjd8f13oq000036l6dj7tkfcx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/压力测试使用/">压力测试使用</a></li></ul>
@@ -194,7 +210,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/01/Java单元测试01/" data-id="cjd59hgmy0000cdl6388rkayg" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/01/Java单元测试01/" data-id="cjd59hgmy0000cdl6388rkayg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-单元测试-junit/">java 单元测试 junit</a></li></ul>
@@ -236,7 +252,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archiv</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/02/">February 2018</a></li></ul>
     </div>
@@ -246,7 +262,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">letzter Beitrag</h3>
+    <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
         
