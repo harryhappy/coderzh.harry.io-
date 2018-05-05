@@ -5,20 +5,20 @@
   
 
   
-  <title>Java单元测试 | HarryHappy</title>
+  <title>Spring Security 1 | HarryHappy</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="开始单元测试现在微服务框架，使得最初的debug调试变得非常难，对于Web服务架构通常分接入层，逻辑层，存储层…对于业务复杂的还可能分更多的层次。 开发者社区中一种说法：不使用debug的开发习惯，也就是说不依赖debug进行程序的开发。如果你开发的是一个复杂逻辑的程序，debug还是十分方便的，但是对于大多数程序来说使用全面的log体系可以完成程序的调试和验证工作。 对于微服务架构的程序，涉">
-<meta name="keywords" content="java 单元测试 junit">
+  <meta name="description" content="1. spring security是用来做什么的？安全领域的问题应该谁来负责？后台开发面临一个比较大的问题就是安全问题，如何有效的防止开发人员能写出有逻辑漏洞，注入漏洞的问题呢？ 开发人员你的安全意识是必须的，但是更重要的是在框架层面提供支持，在框架层面给予充分的约束和规约控制，这样写业务逻辑的同事可以在框架的约束下专注于自身业务的开发。 这就给框架层提了很高的要求，既要宽泛，还要足够的严谨，可">
+<meta name="keywords" content="压力测试使用">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Java单元测试">
-<meta property="og:url" content="http://yoursite.com/2018/02/01/Java单元测试01/index.html">
+<meta property="og:title" content="Spring Security 1">
+<meta property="og:url" content="http://yoursite.com/2018/02/09/SpringSecurity/index.html">
 <meta property="og:site_name" content="HarryHappy">
-<meta property="og:description" content="开始单元测试现在微服务框架，使得最初的debug调试变得非常难，对于Web服务架构通常分接入层，逻辑层，存储层…对于业务复杂的还可能分更多的层次。 开发者社区中一种说法：不使用debug的开发习惯，也就是说不依赖debug进行程序的开发。如果你开发的是一个复杂逻辑的程序，debug还是十分方便的，但是对于大多数程序来说使用全面的log体系可以完成程序的调试和验证工作。 对于微服务架构的程序，涉">
+<meta property="og:description" content="1. spring security是用来做什么的？安全领域的问题应该谁来负责？后台开发面临一个比较大的问题就是安全问题，如何有效的防止开发人员能写出有逻辑漏洞，注入漏洞的问题呢？ 开发人员你的安全意识是必须的，但是更重要的是在框架层面提供支持，在框架层面给予充分的约束和规约控制，这样写业务逻辑的同事可以在框架的约束下专注于自身业务的开发。 这就给框架层提了很高的要求，既要宽泛，还要足够的严谨，可">
 <meta property="og:locale" content="cn">
-<meta property="og:updated_time" content="2018-02-03T03:02:02.834Z">
+<meta property="og:updated_time" content="2018-02-10T08:06:07.842Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Java单元测试">
-<meta name="twitter:description" content="开始单元测试现在微服务框架，使得最初的debug调试变得非常难，对于Web服务架构通常分接入层，逻辑层，存储层…对于业务复杂的还可能分更多的层次。 开发者社区中一种说法：不使用debug的开发习惯，也就是说不依赖debug进行程序的开发。如果你开发的是一个复杂逻辑的程序，debug还是十分方便的，但是对于大多数程序来说使用全面的log体系可以完成程序的调试和验证工作。 对于微服务架构的程序，涉">
+<meta name="twitter:title" content="Spring Security 1">
+<meta name="twitter:description" content="1. spring security是用来做什么的？安全领域的问题应该谁来负责？后台开发面临一个比较大的问题就是安全问题，如何有效的防止开发人员能写出有逻辑漏洞，注入漏洞的问题呢？ 开发人员你的安全意识是必须的，但是更重要的是在框架层面提供支持，在框架层面给予充分的约束和规约控制，这样写业务逻辑的同事可以在框架的约束下专注于自身业务的开发。 这就给框架层提了很高的要求，既要宽泛，还要足够的严谨，可">
   
     <link rel="alternate" href="/atom.xml" title="HarryHappy" type="application/atom+xml">
   
@@ -65,10 +65,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Java单元测试01" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-SpringSecurity" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/02/01/Java单元测试01/" class="article-date">
-  <time datetime="2018-02-01T14:20:44.000Z" itemprop="datePublished">2018-02-01</time>
+    <a href="/2018/02/09/SpringSecurity/" class="article-date">
+  <time datetime="2018-02-08T16:00:00.000Z" itemprop="datePublished">2018-02-09</time>
 </a>
     
   </div>
@@ -79,7 +79,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Java单元测试
+      Spring Security 1
     </h1>
   
 
@@ -87,21 +87,25 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="开始单元测试"><a href="#开始单元测试" class="headerlink" title="开始单元测试"></a>开始单元测试</h2><p>现在微服务框架，使得最初的debug调试变得非常难，对于Web服务架构通常分接入层，逻辑层，存储层…对于业务复杂的还可能分更多的层次。</p>
-<p>开发者社区中一种说法：不使用debug的开发习惯，也就是说不依赖debug进行程序的开发。如果你开发的是一个复杂逻辑的程序，debug还是十分方便的，但是对于大多数程序来说使用全面的log体系可以完成程序的调试和验证工作。</p>
-<p>对于微服务架构的程序，涉及到服务之间的相互调用，如果都依赖log来验证程序的正确性，开发成本就会变得很高。</p>
-<p>单元测试就显得尤为重要了，首先微服务自身要保证单元测试通过，保证自身逻辑的正确性，这样才不会在服务pair的时候浪费很多时间来联调，在编写单元测试的过程中可能浪费了一些时间，但是这些投入会大大减少后期联调成本，同时对于程序将来的重构有很大的好处。</p>
-<p>如果在服务之间联调、集成测试等过程中发现了新的逻辑bug，这时就需要考虑这个问题是否可以通过单元测试用例来弥补，保证下次不会出现这样的问题，同时如果服务面临重构保证了新的逻辑符合预期。</p>
-<h2 id="Java单元测试"><a href="#Java单元测试" class="headerlink" title="Java单元测试"></a>Java单元测试</h2><p>第一步，告别main方法测试的时代。</p>
-<p>在日常开发行为中，很多时候没有做单元测试，遇到一些复杂的逻辑需要做测试的时候，通常是写一个main方法入口。<br><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure></p>
-
+        <h1 id="1-spring-security是用来做什么的？"><a href="#1-spring-security是用来做什么的？" class="headerlink" title="1. spring security是用来做什么的？"></a>1. spring security是用来做什么的？</h1><p>安全领域的问题应该谁来负责？后台开发面临一个比较大的问题就是安全问题，如何有效的防止开发人员能写出有逻辑漏洞，注入漏洞的问题呢？</p>
+<p>开发人员你的安全意识是必须的，但是更重要的是在框架层面提供支持，在框架层面给予充分的约束和规约控制，这样写业务逻辑的同事可以在框架的约束下专注于自身业务的开发。</p>
+<p>这就给框架层提了很高的要求，既要宽泛，还要足够的严谨，可以满足各个层面的个性化需求。</p>
+<p>Spring Security 提供了一个专注于鉴权和授权的安全框架，和spring其他项目一样可以方便、快速的满足自定义的需求。</p>
+<p>特性：</p>
+<ul>
+<li>满足鉴权和授权的需求</li>
+<li>可以防范点击伪造，session伪造，阔爱站请求伪造等</li>
+<li>servlet api 整合</li>
+<li>springmvc 可选集成</li>
+</ul>
+<h1 id="2-demo项目搭建"><a href="#2-demo项目搭建" class="headerlink" title="2. demo项目搭建"></a>2. demo项目搭建</h1><h1 id="3"><a href="#3" class="headerlink" title="3."></a>3.</h1>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/02/01/Java单元测试01/" data-id="cjgsuo39900008bl64j8xkx0q" class="article-share-link">Teilen</a>
+      <a data-url="http://yoursite.com/2018/02/09/SpringSecurity/" data-id="cjgsuo39k00038bl6hls3026l" class="article-share-link">Teilen</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java-单元测试-junit/">java 单元测试 junit</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/压力测试使用/">压力测试使用</a></li></ul>
 
     </footer>
   </div>
@@ -109,15 +113,20 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/02/04/压力测试/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/05/05/领域驱动设计/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Neuer</strong>
       <div class="article-nav-title">
         
-          压力测试
+          领域驱动设计
         
       </div>
     </a>
   
+  
+    <a href="/2018/02/06/Locust源码分析/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Älter</strong>
+      <div class="article-nav-title">Locust源码分析（1）</div>
+    </a>
   
 </nav>
 
